@@ -1,36 +1,28 @@
-package com.ecommerce.ecommerce.model;
+package com.ecommerce.ecommerce.dto;
 
-import jakarta.persistence.*;
-import java.util.Objects;
+import com.ecommerce.ecommerce.model.Endereco;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
-@Entity
-@Table(name = "cliente")
-public class Cliente {
+public class Cliente_RequestDTO {
+private Integer id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+private String nome;
 
-    @Column(name = "nome_cliente")
-    private String nome;
 
-    @Column
-    private String cpf;
+private String cpf;
 
-    @Column(name = "data_nasc")
-    private String dataNascimento;
+private String dataNascimento;
 
-    @Column
-    private String email;
 
-    @Column
-    private String telefone;
+private String email;
 
-    @ManyToOne
-    @JoinColumn(name = "id_endereco")
-    private Endereco endereco;
 
-    // Getters e setters
+private String telefone;
+
+
+private Endereco endereco;
 
     public Integer getId() {
         return id;

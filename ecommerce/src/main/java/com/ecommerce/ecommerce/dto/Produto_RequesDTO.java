@@ -1,35 +1,20 @@
-package com.ecommerce.ecommerce.model;
+package com.ecommerce.ecommerce.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
-@Entity
-@Table(name = "produto")
-public class Produto {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Produto_RequesDTO {
     private Integer id;
 
-    @Column
+
     private String nome;
 
-    @Column
+
     private String descricao;
-
-    @Column
     private BigDecimal preco;
-
-    @ManyToOne
-    @JoinColumn(name = "id_categoria")
-    @JsonIgnoreProperties("produtos")
-    private Categoria categoria;
-
-    // Getters e setters
-
 
     public Integer getId() {
         return id;
@@ -61,13 +46,5 @@ public class Produto {
 
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
     }
 }

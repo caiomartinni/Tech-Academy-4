@@ -1,35 +1,21 @@
-package com.ecommerce.ecommerce.model;
+package com.ecommerce.ecommerce.dto;
 
-import jakarta.persistence.*;
-import java.util.Objects;
-
-@Entity
-@Table(name = "endereco")
-public class Endereco {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Endereco_RequestDTO {
     private Integer id;
-
-    @Column
     private String logr;
-
-    @Column
     private String numero;
-
-    @Column
     private String bairro;
-
-    @Column
     private String cep;
-
-    @Column
     private String cidade;
-
-    @Column
     private String uf;
 
-    // Getters e setters
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getLogr() {
         return logr;

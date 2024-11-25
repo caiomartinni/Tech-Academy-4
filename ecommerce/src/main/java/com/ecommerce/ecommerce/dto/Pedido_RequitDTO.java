@@ -1,29 +1,17 @@
-package com.ecommerce.ecommerce.model;
+package com.ecommerce.ecommerce.dto;
 
-import jakarta.persistence.*;
+import com.ecommerce.ecommerce.model.Cliente;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
-@Entity
-@Table(name = "pedido")
-public class Pedido {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Pedido_RequitDTO {
     private Integer id;
-
-    @ManyToOne
-    @JoinColumn(name = "id_cliente")
-    private Cliente cliente;
-
-    @Column
     private LocalDate dataPedido;
-
-    @Column
     private BigDecimal total;
-
-    // Getters e setters
 
     public Integer getId() {
         return id;
@@ -31,14 +19,6 @@ public class Pedido {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     public LocalDate getDataPedido() {
