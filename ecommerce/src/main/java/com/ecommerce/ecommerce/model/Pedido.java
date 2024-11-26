@@ -10,6 +10,7 @@ import java.util.Objects;
 public class Pedido {
 
     @Id
+    @Column(name = "id_pedido")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -17,7 +18,7 @@ public class Pedido {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-    @Column
+    @Column(name = "data_pedido")
     private LocalDate dataPedido;
 
     @Column

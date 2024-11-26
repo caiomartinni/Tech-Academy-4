@@ -12,12 +12,13 @@ public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_produto")
     private Integer id;
 
-    @Column
+    @Column(name = "nome_produto")
     private String nome;
 
-    @Column
+    @Column(name = "ds_produto")
     private String descricao;
 
     @Column

@@ -11,6 +11,7 @@ import java.util.Objects;
 public class Categoria {
 
     @Id
+    @Column(name = "id_categoria")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
