@@ -1,6 +1,9 @@
 package com.ecommerce.ecommerce.controller;
 
+import com.ecommerce.ecommerce.dto.Produto_RequesDTO;
+import com.ecommerce.ecommerce.model.Categoria;
 import com.ecommerce.ecommerce.model.Produto;
+import com.ecommerce.ecommerce.repository.CategoriaRepository;
 import com.ecommerce.ecommerce.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,9 @@ public class ProdutoController {
 
     @Autowired
    private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
     @GetMapping
     public ResponseEntity<List<Produto>> findAll() {
@@ -35,5 +41,23 @@ public class ProdutoController {
         }
         produtoRepository.deleteById(id);
     return ResponseEntity.ok().body("Produdo deletado com sucesso!");
+    }
+    @PostMapping
+    public ResponseEntity<?> save(@RequestBody Produto_RequesDTO dto){
+
+        Optional<Categoria> categoriaOptional = categoriaRepository.findById(dto.getId_categoria());
+
+        if (categoriaOptional.isEmpty()) {
+            return ResponseEntity.badRequest().body("Usuário não encontrado com o ID fornecido.");
+        }
+
+        Produto produto = new Produto();
+        produto.setNome(dto.getNome());
+        produto.setDescricao(dto.getDescricao());
+        produto.setPreco(dto.getPreco());
+        produto.setCategoria(categoriaOptional.get());
+
+        Produto saveProduto = produtoRepository.save(produto);
+        return ResponseEntity.ok(saveProduto);
     }
 }

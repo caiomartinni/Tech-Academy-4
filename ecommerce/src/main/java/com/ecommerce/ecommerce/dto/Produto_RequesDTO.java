@@ -12,6 +12,7 @@ public class Produto_RequesDTO {
 
     private String nome;
 
+    private Integer id_categoria;
 
     private String descricao;
     private BigDecimal preco;
@@ -46,5 +47,13 @@ public class Produto_RequesDTO {
 
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
+    }
+
+    public Integer getId_categoria() {
+        return id_categoria;
+    }
+
+    public void setId_categoria(Integer id_categoria) {
+        this.id_categoria = id_categoria;
     }
 }
