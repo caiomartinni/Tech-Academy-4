@@ -1,6 +1,7 @@
 package com.ecommerce.ecommerce.controller;
 
 import com.ecommerce.ecommerce.model.Endereco;
+import com.ecommerce.ecommerce.model.Produto;
 import com.ecommerce.ecommerce.repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,5 +25,8 @@ public class EnderecoController {
         return ResponseEntity.ok(enderecos);
     }
 
-
+    @GetMapping("/{id}")
+    public Endereco findById(@PathVariable Integer id) {
+        return this.enderecoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Endereço não foi encontrado"));
+    }
 }
