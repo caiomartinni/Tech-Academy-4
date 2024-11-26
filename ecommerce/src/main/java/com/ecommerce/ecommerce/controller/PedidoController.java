@@ -23,4 +23,6 @@ public class PedidoController {
         List<Pedido> pedido = this.pedidoRepository.findAll();
         return ResponseEntity.ok(pedido);
     }
+
+    
 }

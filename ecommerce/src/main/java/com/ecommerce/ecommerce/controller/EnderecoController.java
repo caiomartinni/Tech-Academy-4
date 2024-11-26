@@ -23,4 +23,6 @@ public class EnderecoController {
         List<Endereco> enderecos = this.enderecoRepository.findAll();
         return ResponseEntity.ok(enderecos);
     }
+
+
 }

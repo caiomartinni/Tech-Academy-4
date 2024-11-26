@@ -23,4 +23,8 @@ public class ProdutoController {
         return ResponseEntity.ok(produtos);
     }
 
+    @GetMapping("/{id}")
+    public Produto findById(@PathVariable Integer id) {
+        return this.produtoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Produto não foi encontrado"));
+    }
 }
