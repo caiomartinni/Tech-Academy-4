@@ -29,5 +29,14 @@ public class ClienteController {
     public Cliente findById(@PathVariable Integer id) {
         return this.clienteRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Cliente não foi encontrado"));
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        Optional<Cliente>clienteOptional = clienteRepository.findById(id);
+        if (clienteOptional.isEmpty()){
+            return ResponseEntity.badRequest().body("Cliente não encontrado com o ID fornecido.");
+        }
+        clienteRepository.deleteById(id);
+        return ResponseEntity.ok().body("Cliente deletado com sucesso!");
+    }
 }
 
