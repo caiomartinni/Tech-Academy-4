@@ -1,9 +1,14 @@
 package com.ecommerce.ecommerce.controller;
 
+import ch.qos.logback.core.net.server.Client;
+import com.ecommerce.ecommerce.dto.Cliente_RequestDTO;
+import com.ecommerce.ecommerce.dto.Produto_RequesDTO;
+import com.ecommerce.ecommerce.model.Categoria;
 import com.ecommerce.ecommerce.model.Cliente;
 import com.ecommerce.ecommerce.model.Endereco;
 import com.ecommerce.ecommerce.model.Produto;
 import com.ecommerce.ecommerce.repository.ClienteRepository;
+import com.ecommerce.ecommerce.repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +23,9 @@ public class ClienteController {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     // Endpoint para listar todos os clientes
     @GetMapping
@@ -37,6 +45,30 @@ public class ClienteController {
         }
         clienteRepository.deleteById(id);
         return ResponseEntity.ok().body("Cliente deletado com sucesso!");
+    }
+
+    @PostMapping
+    public ResponseEntity<?> save(@RequestBody Cliente_RequestDTO dto){
+
+        Optional<Endereco> enderecoOptional = enderecoRepository.findById(dto.getEndereco());
+
+        if (enderecoOptional.isEmpty()) {
+            return ResponseEntity.badRequest().body("Cliente não encontrado com o ID fornecido.");
+        }
+
+        Cliente cliente = new Cliente();
+        cliente.setId(dto.getId());
+        cliente.setNome(dto.getNome());
+        cliente.setCpf(dto.getCpf());
+        cliente.setEmail(dto.getEmail());
+        cliente.setTelefone(dto.getTelefone());
+        cliente.setDataNascimento(dto.getDataNascimento());
+        cliente.setEndereco(enderecoOptional.get());
+
+
+
+        Cliente saveCliente = clienteRepository.save(cliente);
+        return ResponseEntity.ok(saveCliente);
     }
 }
 

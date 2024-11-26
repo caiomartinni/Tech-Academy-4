@@ -22,7 +22,7 @@ private String email;
 private String telefone;
 
 
-private Endereco endereco;
+private Integer endereco;
 
     public Integer getId() {
         return id;
@@ -72,11 +72,11 @@ private Endereco endereco;
         this.telefone = telefone;
     }
 
-    public Endereco getEndereco() {
+    public Integer getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(Endereco endereco) {
+    public void setEndereco(Integer endereco) {
         this.endereco = endereco;
     }
 }
