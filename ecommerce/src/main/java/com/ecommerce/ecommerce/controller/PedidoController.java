@@ -28,4 +28,13 @@ public class PedidoController {
     public Pedido findById(@PathVariable Integer id) {
         return this.pedidoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pedido não foi encontrado"));
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        Optional<Pedido>pedidoOptional = pedidoRepository.findById(id);
+        if (pedidoOptional.isEmpty()){
+            return ResponseEntity.badRequest().body("Produto não encontrado com o ID fornecido.");
+        }
+        pedidoRepository.deleteById(id);
+        return ResponseEntity.ok().body("Produdo deletado com sucesso!");
+    }
 }
