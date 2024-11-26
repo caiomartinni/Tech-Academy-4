@@ -29,4 +29,13 @@ public class EnderecoController {
     public Endereco findById(@PathVariable Integer id) {
         return this.enderecoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Endereço não foi encontrado"));
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        Optional<Endereco>enderecoOptional = enderecoRepository.findById(id);
+        if (enderecoOptional.isEmpty()){
+            return ResponseEntity.badRequest().body("Endereco não encontrado com o ID fornecido.");
+        }
+        enderecoRepository.deleteById(id);
+        return ResponseEntity.ok().body("Endereco deletado com sucesso!");
+    }
 }
