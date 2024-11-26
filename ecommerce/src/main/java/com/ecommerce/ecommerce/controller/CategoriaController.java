@@ -28,4 +28,13 @@ public class CategoriaController {
     public Categoria findById(@PathVariable Integer id) {
         return this.categoriaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Categoria não foi encontrado"));
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        Optional<Categoria>categoriaOptional = categoriaRepository.findById(id);
+        if (categoriaOptional.isEmpty()){
+            return ResponseEntity.badRequest().body("Categoria não encontrado com o ID fornecido.");
+        }
+        categoriaRepository.deleteById(id);
+        return ResponseEntity.ok().body("Categoria deletado com sucesso!");
+    }
 }
