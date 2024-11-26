@@ -24,5 +24,8 @@ public class PedidoController {
         return ResponseEntity.ok(pedido);
     }
 
-    
+    @GetMapping("/{id}")
+    public Pedido findById(@PathVariable Integer id) {
+        return this.pedidoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pedido não foi encontrado"));
+    }
 }
