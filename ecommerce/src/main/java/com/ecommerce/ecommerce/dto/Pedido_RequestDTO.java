@@ -1,14 +1,9 @@
 package com.ecommerce.ecommerce.dto;
 
-import com.ecommerce.ecommerce.model.Cliente;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Pedido_RequitDTO {
+public class Pedido_RequestDTO {
     private Integer id;
     private LocalDate dataPedido;
     private BigDecimal total;
