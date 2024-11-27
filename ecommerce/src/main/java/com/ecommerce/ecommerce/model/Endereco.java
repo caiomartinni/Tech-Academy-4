@@ -16,13 +16,13 @@ public class Endereco {
     private String logr;
 
     @Column
-    private String numero;
+    private Integer numero;
 
     @Column
     private String bairro;
 
     @Column
-    private String cep;
+    private Integer cep;
 
     @Column
     private String cidade;
@@ -32,6 +32,15 @@ public class Endereco {
 
     // Getters e setters
 
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getLogr() {
         return logr;
     }
@@ -40,11 +49,11 @@ public class Endereco {
         this.logr = logr;
     }
 
-    public String getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
     }
 
@@ -56,11 +65,11 @@ public class Endereco {
         this.bairro = bairro;
     }
 
-    public String getCep() {
+    public Integer getCep() {
         return cep;
     }
 
-    public void setCep(String cep) {
+    public void setCep(Integer cep) {
         this.cep = cep;
     }
 

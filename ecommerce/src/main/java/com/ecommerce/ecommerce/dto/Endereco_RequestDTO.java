@@ -3,11 +3,12 @@ package com.ecommerce.ecommerce.dto;
 public class Endereco_RequestDTO {
     private Integer id;
     private String logr;
-    private String numero;
+    private Integer numero;
     private String bairro;
-    private String cep;
+    private Integer cep;
     private String cidade;
     private String uf;
+
 
     public Integer getId() {
         return id;
@@ -25,13 +26,6 @@ public class Endereco_RequestDTO {
         this.logr = logr;
     }
 
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
 
     public String getBairro() {
         return bairro;
@@ -41,11 +35,19 @@ public class Endereco_RequestDTO {
         this.bairro = bairro;
     }
 
-    public String getCep() {
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
+
+    public Integer getCep() {
         return cep;
     }
 
-    public void setCep(String cep) {
+    public void setCep(Integer cep) {
         this.cep = cep;
     }
 
