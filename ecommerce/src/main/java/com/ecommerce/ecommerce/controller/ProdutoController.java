@@ -40,7 +40,7 @@ public class ProdutoController {
             return ResponseEntity.badRequest().body("Produto não encontrado com o ID fornecido.");
         }
         produtoRepository.deleteById(id);
-    return ResponseEntity.ok().body("Produdo deletado com sucesso!");
+    return ResponseEntity.ok().body("Produto deletado com sucesso!");
     }
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Produto_RequesDTO dto){
@@ -48,7 +48,7 @@ public class ProdutoController {
         Optional<Categoria> categoriaOptional = categoriaRepository.findById(dto.getId_categoria());
 
         if (categoriaOptional.isEmpty()) {
-            return ResponseEntity.badRequest().body("Usuário não encontrado com o ID fornecido.");
+            return ResponseEntity.badRequest().body("Produto não encontrado com o ID fornecido.");
         }
 
         Produto produto = new Produto();

@@ -1,6 +1,9 @@
 package com.ecommerce.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -19,19 +22,21 @@ public class Cliente {
     private String cpf;
 
     @Column(name = "data_nasc")
-    private String dataNascimento;
+    private Date dataNascimento;
 
     @Column
     private String email;
 
     @Column
-    private String telefone;
+    private Integer telefone;
 
     @ManyToOne
     @JoinColumn(name = "id_endereco")
+    @JsonIgnoreProperties({"endereco"})
     private Endereco endereco;
 
     // Getters e setters
+
 
     public Integer getId() {
         return id;
@@ -57,11 +62,11 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public String getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -73,11 +78,11 @@ public class Cliente {
         this.email = email;
     }
 
-    public String getTelefone() {
+    public Integer getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(Integer telefone) {
         this.telefone = telefone;
     }
 
@@ -87,6 +92,19 @@ public class Cliente {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(id, cliente.id) && Objects.equals(nome, cliente.nome) && Objects.equals(cpf, cliente.cpf) && Objects.equals(dataNascimento, cliente.dataNascimento) && Objects.equals(email, cliente.email) && Objects.equals(telefone, cliente.telefone) && Objects.equals(endereco, cliente.endereco);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, cpf, dataNascimento, email, telefone, endereco);
     }
 }
 

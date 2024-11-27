@@ -33,10 +33,26 @@ public class ClienteController {
         List<Cliente> clientes = this.clienteRepository.findAll();
         return ResponseEntity.ok(clientes);
     }
+
     @GetMapping("/{id}")
     public Cliente findById(@PathVariable Integer id) {
         return this.clienteRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Cliente não foi encontrado"));
     }
+
+    @PostMapping
+    public ResponseEntity<?> save(@RequestBody Cliente_RequestDTO dto) {
+
+        Cliente cliente = new Cliente();
+        cliente.setEmail(dto.getEmail());
+        cliente.setNome(dto.getNome());
+        cliente.setCpf(dto.getCpf());
+        cliente.setDataNascimento(dto.getDataNascimento());
+        cliente.setTelefone(dto.getTelefone());
+
+        Cliente saveCleinte = clienteRepository.save(cliente);
+        return ResponseEntity.ok(saveCleinte);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         Optional<Cliente>clienteOptional = clienteRepository.findById(id);
@@ -47,28 +63,5 @@ public class ClienteController {
         return ResponseEntity.ok().body("Cliente deletado com sucesso!");
     }
 
-    @PostMapping
-    public ResponseEntity<?> save(@RequestBody Cliente_RequestDTO dto){
-
-        Optional<Endereco> enderecoOptional = enderecoRepository.findById(dto.getEndereco());
-
-        if (enderecoOptional.isEmpty()) {
-            return ResponseEntity.badRequest().body("Cliente não encontrado com o ID fornecido.");
-        }
-
-        Cliente cliente = new Cliente();
-        cliente.setId(dto.getId());
-        cliente.setNome(dto.getNome());
-        cliente.setCpf(dto.getCpf());
-        cliente.setEmail(dto.getEmail());
-        cliente.setTelefone(dto.getTelefone());
-        cliente.setDataNascimento(dto.getDataNascimento());
-        cliente.setEndereco(enderecoOptional.get());
-
-
-
-        Cliente saveCliente = clienteRepository.save(cliente);
-        return ResponseEntity.ok(saveCliente);
-    }
 }
 

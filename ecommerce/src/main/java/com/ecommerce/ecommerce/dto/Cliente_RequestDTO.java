@@ -5,23 +5,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+import java.util.Date;
+
 public class Cliente_RequestDTO {
 private Integer id;
-
 private String nome;
-
-
 private String cpf;
-
-private String dataNascimento;
-
-
+private Date dataNascimento;
 private String email;
-
-
-private String telefone;
-
-
+private Integer telefone;
 private Integer endereco;
 
     public Integer getId() {
@@ -48,11 +40,11 @@ private Integer endereco;
         this.cpf = cpf;
     }
 
-    public String getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -64,11 +56,11 @@ private Integer endereco;
         this.email = email;
     }
 
-    public String getTelefone() {
+    public Integer getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(Integer telefone) {
         this.telefone = telefone;
     }
 
