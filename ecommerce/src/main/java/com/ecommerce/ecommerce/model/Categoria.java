@@ -18,20 +18,9 @@ public class Categoria {
     @Column(name = "nome_categoria")
     private String nome;
 
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("categoria")
-    private List<Produto> produtos;
 
     // Getters e setters
 
-
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
-    }
 
     public String getNome() {
         return nome;
