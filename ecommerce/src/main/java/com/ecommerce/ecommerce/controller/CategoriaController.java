@@ -1,5 +1,6 @@
 package com.ecommerce.ecommerce.controller;
 
+import com.ecommerce.ecommerce.dto.Categoria_RequestDTO;
 import com.ecommerce.ecommerce.model.Categoria;
 import com.ecommerce.ecommerce.model.Cliente;
 import com.ecommerce.ecommerce.model.Produto;
@@ -28,6 +29,17 @@ public class CategoriaController {
     public Categoria findById(@PathVariable Integer id) {
         return this.categoriaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Categoria não foi encontrado"));
     }
+
+    @PostMapping
+    public ResponseEntity<?> save(@RequestBody Categoria_RequestDTO dto) {
+
+        Categoria categoria = new Categoria();
+        categoria.setNome(dto.getNome());
+
+        Categoria savedItem = categoriaRepository.save(categoria);
+        return ResponseEntity.ok(savedItem);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         Optional<Categoria>categoriaOptional = categoriaRepository.findById(id);
