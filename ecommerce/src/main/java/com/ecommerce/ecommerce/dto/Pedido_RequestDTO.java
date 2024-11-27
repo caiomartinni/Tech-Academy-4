@@ -7,6 +7,15 @@ public class Pedido_RequestDTO {
     private Integer id;
     private LocalDate dataPedido;
     private BigDecimal total;
+    private Integer clienteId;
+
+    public Integer getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(Integer clienteId) {
+        this.clienteId = clienteId;
+    }
 
     public Integer getId() {
         return id;

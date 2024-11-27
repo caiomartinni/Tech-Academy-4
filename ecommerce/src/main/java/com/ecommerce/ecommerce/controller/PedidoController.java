@@ -1,9 +1,14 @@
 package com.ecommerce.ecommerce.controller;
 
+import com.ecommerce.ecommerce.dto.Cliente_RequestDTO;
+import com.ecommerce.ecommerce.dto.Pedido_RequestDTO;
+import com.ecommerce.ecommerce.model.Cliente;
 import com.ecommerce.ecommerce.model.Pedido;
 import com.ecommerce.ecommerce.model.Produto;
+import com.ecommerce.ecommerce.repository.ClienteRepository;
 import com.ecommerce.ecommerce.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +23,9 @@ public class PedidoController {
     @Autowired
     private PedidoRepository pedidoRepository;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
     @GetMapping
     public ResponseEntity<List<Pedido>> findAll() {
         List<Pedido> pedido = this.pedidoRepository.findAll();
@@ -28,6 +36,21 @@ public class PedidoController {
     public Pedido findById(@PathVariable Integer id) {
         return this.pedidoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Pedido não foi encontrado"));
     }
+
+    @PostMapping
+    public ResponseEntity<?> save(@RequestBody Pedido_RequestDTO dto) {
+
+        Optional<Cliente> clienteOptional = clienteRepository.findById(dto.getClienteId());
+
+        Pedido pedido = new Pedido();
+        pedido.setDataPedido(dto.getDataPedido());
+        pedido.setTotal(dto.getTotal());
+        pedido.setCliente(clienteOptional.get());
+
+        Pedido savepedido = pedidoRepository.save(pedido);
+        return ResponseEntity.ok(savepedido);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         Optional<Pedido>pedidoOptional = pedidoRepository.findById(id);
