@@ -55,7 +55,7 @@ public class PedidoController {
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         Optional<Pedido>pedidoOptional = pedidoRepository.findById(id);
         if (pedidoOptional.isEmpty()){
-            return ResponseEntity.badRequest().body("Pedido não encontrado com o ID fornecido.");
+            return ResponseEntity.badRequest().body("Pedido não encontrado com o ID fornecido pelo Usuario.");
         }
         pedidoRepository.deleteById(id);
         return ResponseEntity.ok().body("Pedido deletado com sucesso!");

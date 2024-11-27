@@ -56,7 +56,7 @@ public class EnderecoController {
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         Optional<Endereco>enderecoOptional = enderecoRepository.findById(id);
         if (enderecoOptional.isEmpty()){
-            return ResponseEntity.badRequest().body("Endereço não encontrado com o ID fornecido.");
+            return ResponseEntity.badRequest().body("Endereço não encontrado com o ID fornecido pelo usuario.");
         }
         enderecoRepository.deleteById(id);
         return ResponseEntity.ok().body("Endereço deletado com sucesso!");

@@ -29,10 +29,11 @@ public class ProdutoController {
         return ResponseEntity.ok(produtos);
     }
 
-     @GetMapping("/{id}")
+    @GetMapping("/{id}")
     public Produto findById(@PathVariable Integer id) {
         return this.produtoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Produto não foi encontrado"));
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         Optional<Produto>produtoOptional = produtoRepository.findById(id);
@@ -42,13 +43,14 @@ public class ProdutoController {
         produtoRepository.deleteById(id);
     return ResponseEntity.ok().body("Produto deletado com sucesso!");
     }
+
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Produto_RequesDTO dto){
 
         Optional<Categoria> categoriaOptional = categoriaRepository.findById(dto.getId_categoria());
 
         if (categoriaOptional.isEmpty()) {
-            return ResponseEntity.badRequest().body("Produto não encontrado com o ID fornecido.");
+            return ResponseEntity.badRequest().body("Produto não encontrado com o ID fornecido pelo Usuario.");
         }
 
         Produto produto = new Produto();
