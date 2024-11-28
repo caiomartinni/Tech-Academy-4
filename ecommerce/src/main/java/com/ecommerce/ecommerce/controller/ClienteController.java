@@ -1,6 +1,7 @@
 package com.ecommerce.ecommerce.controller;
 
 import ch.qos.logback.core.net.server.Client;
+import com.ecommerce.ecommerce.dto.Categoria_RequestDTO;
 import com.ecommerce.ecommerce.dto.Cliente_RequestDTO;
 import com.ecommerce.ecommerce.dto.Produto_RequesDTO;
 import com.ecommerce.ecommerce.model.Categoria;
@@ -43,6 +44,22 @@ public class ClienteController {
     public ResponseEntity<?> save(@RequestBody Cliente_RequestDTO dto) {
 
         Cliente cliente = new Cliente();
+        cliente.setEmail(dto.getEmail());
+        cliente.setNome(dto.getNome());
+        cliente.setCpf(dto.getCpf());
+        cliente.setDataNascimento(dto.getDataNascimento());
+        cliente.setTelefone(dto.getTelefone());
+
+        Cliente saveCleinte = clienteRepository.save(cliente);
+        return ResponseEntity.ok(saveCleinte);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Cliente_RequestDTO dto){
+
+        Optional<Cliente> clienteOpt = clienteRepository.findById(id);
+
+        Cliente cliente = clienteOpt.get();
         cliente.setEmail(dto.getEmail());
         cliente.setNome(dto.getNome());
         cliente.setCpf(dto.getCpf());

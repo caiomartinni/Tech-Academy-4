@@ -1,6 +1,7 @@
 package com.ecommerce.ecommerce.controller;
 
 import com.ecommerce.ecommerce.dto.Categoria_RequestDTO;
+import com.ecommerce.ecommerce.dto.Produto_RequesDTO;
 import com.ecommerce.ecommerce.model.Categoria;
 import com.ecommerce.ecommerce.model.Cliente;
 import com.ecommerce.ecommerce.model.Produto;
@@ -34,6 +35,20 @@ public class CategoriaController {
     public ResponseEntity<?> save(@RequestBody Categoria_RequestDTO dto) {
 
         Categoria categoria = new Categoria();
+        categoria.setNome(dto.getNome());
+
+        Categoria savedItem = categoriaRepository.save(categoria);
+        return ResponseEntity.ok(savedItem);
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Categoria_RequestDTO dto){
+
+        Optional<Categoria> categoriaOpt = categoriaRepository.findById(id);
+
+
+        Categoria categoria = categoriaOpt.get();
         categoria.setNome(dto.getNome());
 
         Categoria savedItem = categoriaRepository.save(categoria);

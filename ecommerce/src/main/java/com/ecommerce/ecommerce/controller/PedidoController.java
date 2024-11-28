@@ -2,6 +2,8 @@ package com.ecommerce.ecommerce.controller;
 
 import com.ecommerce.ecommerce.dto.Cliente_RequestDTO;
 import com.ecommerce.ecommerce.dto.Pedido_RequestDTO;
+import com.ecommerce.ecommerce.dto.Produto_RequesDTO;
+import com.ecommerce.ecommerce.model.Categoria;
 import com.ecommerce.ecommerce.model.Cliente;
 import com.ecommerce.ecommerce.model.Pedido;
 import com.ecommerce.ecommerce.model.Produto;
@@ -40,6 +42,12 @@ public class PedidoController {
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Pedido_RequestDTO dto) {
 
+        if (dto.getTotal() == null ) {
+            return ResponseEntity.badRequest().body("O valor do pedido é obrigatório.");
+        }
+
+
+
         Optional<Cliente> clienteOptional = clienteRepository.findById(dto.getClienteId());
 
         Pedido pedido = new Pedido();
@@ -51,6 +59,26 @@ public class PedidoController {
         return ResponseEntity.ok(savepedido);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Pedido_RequestDTO dto) {
+
+        Optional<Pedido> itemOpt = pedidoRepository.findById(id);
+        if (itemOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Pedido não encontrado com o ID fornecido.");
+        }
+
+        Optional<Cliente> clienteOptional = clienteRepository.findById(dto.getClienteId());
+
+        Pedido pedido = itemOpt.get();
+        pedido.setDataPedido(dto.getDataPedido());
+        pedido.setTotal(dto.getTotal());
+        pedido.setCliente(clienteOptional.get());
+
+        //  realizar o updade do item
+        Pedido savedItem = pedidoRepository.save(pedido);
+        return ResponseEntity.ok(savedItem);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         Optional<Pedido>pedidoOptional = pedidoRepository.findById(id);
@@ -60,4 +88,6 @@ public class PedidoController {
         pedidoRepository.deleteById(id);
         return ResponseEntity.ok().body("Pedido deletado com sucesso!");
     }
+
+
 }

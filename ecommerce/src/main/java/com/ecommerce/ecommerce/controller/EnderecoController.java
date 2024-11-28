@@ -1,5 +1,6 @@
 package com.ecommerce.ecommerce.controller;
 
+import com.ecommerce.ecommerce.dto.Cliente_RequestDTO;
 import com.ecommerce.ecommerce.dto.Endereco_RequestDTO;
 import com.ecommerce.ecommerce.model.Cliente;
 import com.ecommerce.ecommerce.model.Endereco;
@@ -51,6 +52,26 @@ public class EnderecoController {
         return ResponseEntity.ok(saveEndereco);
 
     }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Endereco_RequestDTO dto){
+
+        Optional<Endereco> enderecoOpt = enderecoRepository.findById(id);
+
+        Endereco endereco = enderecoOpt.get();
+        endereco.setBairro(dto.getBairro());
+        endereco.setCep(dto.getCep());
+        endereco.setCidade(dto.getCidade());
+        endereco.setLogr(dto.getLogr());
+        endereco.setUf(dto.getUf());
+        endereco.setNumero(dto.getNumero());
+
+        Endereco saveEndereco = enderecoRepository.save(endereco);
+        return ResponseEntity.ok(saveEndereco);
+
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {

@@ -62,4 +62,34 @@ public class ProdutoController {
         Produto saveProduto = produtoRepository.save(produto);
         return ResponseEntity.ok(saveProduto);
     }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Produto_RequesDTO dto) {
+
+        Optional<Produto> itemOpt = produtoRepository.findById(id);
+        if (itemOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Item não encontrado com o ID fornecido.");
+        }
+
+        // Validação de categoria
+        Optional<Categoria> categoriaOpt = categoriaRepository.findById(dto.getId_categoria());
+        if (categoriaOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Categoria não encontrada com o ID fornecido.");
+        }
+
+
+        // Atualizar o item
+        Produto produto = itemOpt.get();
+        produto.setNome(dto.getNome());
+        produto.setDescricao(dto.getDescricao());
+        produto.setPreco(dto.getPreco());
+        produto.setCategoria(categoriaOpt.get());
+
+        //  realizar o updade do item
+        Produto savedItem = produtoRepository.save(produto);
+        return ResponseEntity.ok(savedItem);
+    }
 }
+
+
