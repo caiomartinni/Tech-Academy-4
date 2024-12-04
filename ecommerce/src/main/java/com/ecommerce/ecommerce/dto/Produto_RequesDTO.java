@@ -8,8 +8,6 @@ import java.math.BigDecimal;
 
 public class Produto_RequesDTO {
     private Integer id;
-
-
     private String nome;
 
     private Integer id_categoria;

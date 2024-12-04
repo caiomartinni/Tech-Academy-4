@@ -1,9 +1,10 @@
 package com.ecommerce.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.List;
 
 @Entity
 @Table(name = "pedido")
@@ -23,6 +24,10 @@ public class Pedido {
 
     @Column
     private BigDecimal total;
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<ItemPedido> itemPedidos;
 
     // Getters e setters
 

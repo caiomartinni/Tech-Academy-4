@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.Objects;
+import java.util.List;
 
 @Entity
 @Table(name = "produto")
-public class Produto {
+public class Produto extends BaseEntityValidator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,23 @@ public class Produto {
     @JsonIgnoreProperties("produtos")
     private Categoria categoria;
 
-    // Getters e setters
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("produto")
+    private List<ItemPedido> itemPedidos;
+
+
+
+    public List<ItemPedido> getItemPedidos() {
+        return itemPedidos;
+    }
+
+    public void setItemPedidos(List<ItemPedido> itemPedidos) {
+        this.itemPedidos = itemPedidos;
+    }
+
+
+// Getters e setters
 
 
     public Integer getId() {
