@@ -43,12 +43,15 @@ public class ClienteController {
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Cliente_RequestDTO dto) {
 
+        Optional<Endereco> enderecoOpt = enderecoRepository.findById(dto.getEndereco());
+
         Cliente cliente = new Cliente();
         cliente.setEmail(dto.getEmail());
         cliente.setNome(dto.getNome());
         cliente.setCpf(dto.getCpf());
         cliente.setDataNascimento(dto.getDataNascimento());
         cliente.setTelefone(dto.getTelefone());
+        cliente.setEndereco(enderecoOpt.get());
 
         Cliente saveCleinte = clienteRepository.save(cliente);
         return ResponseEntity.ok(saveCleinte);
@@ -58,6 +61,7 @@ public class ClienteController {
     public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Cliente_RequestDTO dto){
 
         Optional<Cliente> clienteOpt = clienteRepository.findById(id);
+        Optional<Endereco> enderecoOpt = enderecoRepository.findById(dto.getEndereco());
 
         Cliente cliente = clienteOpt.get();
         cliente.setEmail(dto.getEmail());
@@ -65,6 +69,7 @@ public class ClienteController {
         cliente.setCpf(dto.getCpf());
         cliente.setDataNascimento(dto.getDataNascimento());
         cliente.setTelefone(dto.getTelefone());
+        cliente.setEndereco(enderecoOpt.get());
 
         Cliente saveCleinte = clienteRepository.save(cliente);
         return ResponseEntity.ok(saveCleinte);

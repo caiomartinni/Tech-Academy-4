@@ -9,6 +9,7 @@ import com.ecommerce.ecommerce.model.Pedido;
 import com.ecommerce.ecommerce.model.Produto;
 import com.ecommerce.ecommerce.repository.ClienteRepository;
 import com.ecommerce.ecommerce.repository.PedidoRepository;
+import com.ecommerce.ecommerce.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,9 @@ public class PedidoController {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     @GetMapping
     public ResponseEntity<List<Pedido>> findAll() {
